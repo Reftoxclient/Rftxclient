@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reftox Client</title>
+    <style>
+        @font-face {
+            font-family: 'Jersey';
+            src: url("{{ url_for('static', filename='Jersey M54.ttf') }}") format('truetype');
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Jersey', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .neon-orb {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #00ff84 0%, rgba(0,255,132,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatOrb 15s infinite linear;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+            25% {
+                transform: translate(100px, 100px) scale(1.5);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translate(200px, -100px) scale(1);
+                opacity: 0.3;
+            }
+            75% {
+                transform: translate(-100px, 200px) scale(1.8);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 0;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 72px;
+            color: #00ff84;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84; }
+            to { text-shadow: 0 0 20px #00ff84, 0 0 30px #00ff84, 0 0 40px #00ff84; }
+        }
+
+        .main-image {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #00ff84;
+        }
+
+        .description {
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            font-size: 20px;
+            line-height: 1.5;
+            padding: 0 20px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .products {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px 20px;
+            animation: fadeIn 2.5s ease-in;
+        }
+
+        .product-card {
+            background-color: #2a2a2a;
+            border-radius: 15px;
+            padding: 30px;
+            width: 250px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 255, 132, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 255, 132, 0.3);
+        }
+
+        .product-title {
+            color: #00ff84;
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px #00ff84;
+        }
+
+        .product-features {
+            margin: 15px 0;
+        }
+
+        .product-price {
+            font-size: 20px;
+            color: #00ff84;
+            margin-bottom: 20px;
+        }
+
+        .buy-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #00ff84, #00cc69);
+            border: none;
+            border-radius: 25px;
+            color: #1a1a1a;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ff84;
+        }
+
+        .buy-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            animation: buttonGlow 2s linear infinite;
+        }
+
+        @keyframes buttonGlow {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Неоновые шары -->
+    <div class="neon-orb" style="top:10%;left:10%"></div>
+    <div class="neon-orb" style="top:30%;left:70%"></div>
+    <div class="neon-orb" style="top:70%;left:20%"></div>
+    <div class="neon-orb" style="top:50%;left:90%"></div>
+
+    <div class="header">
+        <h1 class="title">REFTOX CLIENT</h1>
+        <img src="{{ url_for('static', filename='main.png') }}" alt="Reftox Client" class="main-image">
+    </div>
+
+    <div class="description">
+        Reftox Client — это легальный чит с минимальным риском получения бана. Чтобы приобрести, просто пролистайте сайт вниз и выберите подходящий товар!
+    </div>
+
+    <div class="products">
+        <div class="product-card">
+            <div class="product-title">Stock pack</div>
+            <div class="product-features">2 Configs</div>
+            <div class="product-price">45g/50₽</div>
+            <a href="https://t.me/MATb_XABAET" class="buy-button">Приобрести</a>
+        </div>
+
+        <div class="product-card">
+            <div class="product-title">Legit pack</div>
+            <div class="product-features">4 configs</div>
+            <div class="product-price">56g/67₽</div>
+            <a href="https://t.me/MATb_XABAET" class="buy-button">Приобрести</a>
+        </div>
+
+        <div class="product-card">
+            <div class="product-title">Subscription Pack</div>
+            <div class="product-features">all cfgs</div>
+            <div class="product-price">90g/100₽ month</div>
+            <a href="https://t.me/MATb_XABAET" class="buy-button">Приобрести</a>
+        </div>
+    </div>
+
+    <script>
+        // Создаем дополнительные неоновые шары динамически
+        function createOrb() {
+            const orb = document.createElement('div');
+            orb.className = 'neon-orb';
+            orb.style.left = Math.random() * 100 + 'vw';
+            orb.style.top = Math.random() * 100 + 'vh';
+            orb.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(orb);
+            
+            // Удаляем шар после анимации
+            setTimeout(() => {
+                orb.remove();
+                createOrb();
+            }, 15000);
+        }
+
+        // Создаем несколько шаров
+        for(let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                createOrb();
+            }, i * 2000);
+        }
+    </script>
+</body>
+</html>
